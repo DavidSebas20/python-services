@@ -3,8 +3,19 @@ from pydantic import BaseModel
 from typing import List, Optional
 from uuid import uuid4
 from threading import Lock
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Configuración de CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite todas las solicitudes. Reemplaza "*" con dominios específicos en producción
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos (GET, POST, etc.)
+    allow_headers=["*"],  # Permite todos los encabezados
+)
+
 
 # Modelo para representar a un cliente en la cola
 class Client(BaseModel):
